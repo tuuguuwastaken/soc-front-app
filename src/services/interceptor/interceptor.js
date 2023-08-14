@@ -7,7 +7,7 @@ const isLocalAvailable = checkLocalAvailability();
 let backendUrl = ''
 
 if(isLocalAvailable){
-  backendUrl = env.api
+  backendUrl = env.local
 } else {
   backendUrl = env.api
 }
