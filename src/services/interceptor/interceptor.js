@@ -7,7 +7,7 @@ const isLocalAvailable = checkLocalAvailability();
 let backendUrl = ''
 
 if(isLocalAvailable){
-  backendUrl = env.api
+  backendUrl = env.local
 } else {
   backendUrl = env.api
 }
@@ -42,8 +42,8 @@ export default instance;
 
 async function checkLocalAvailability() {
   try {
-    const response = await axios.get(env.local);
-    if(response.status === 200){
+    const response = await axios.get(`${env.local}/local`);
+    if(response.data.status === 200){
       return true
     }
   } catch (error) {
