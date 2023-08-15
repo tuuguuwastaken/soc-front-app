@@ -3,15 +3,8 @@ import { env } from '@/environment/environment';
 
 const instance = axios.create();
 
-const isLocalAvailable = checkLocalAvailability();
-let backendUrl = ''
 
-if(isLocalAvailable){
-  backendUrl = env.local
-} else {
-  backendUrl = env.api
-}
-
+const backendUrl = env.api;
 
 if (backendUrl) {
   instance.defaults.baseURL = backendUrl;
@@ -40,16 +33,6 @@ if (backendUrl) {
 
 export default instance;
 
-async function checkLocalAvailability() {
-  try {
-    const response = await axios.get(`${env.local}/local`);
-    if(response.data.status === 200){
-      return true
-    }
-  } catch (error) {
-    return false;
-  }
-}
 
 
 
