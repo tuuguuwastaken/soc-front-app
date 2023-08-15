@@ -1,10 +1,17 @@
 <template>
   <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+    <header-buttons></header-buttons>
   </nav>
   <router-view/>
 </template>
+<script>
+import headerButtons from '@/components/header-buttons.vue';
+  export default {
+    components:{
+      headerButtons
+    }
+  }
+</script>
 
 <style lang="scss">
 #app {
