@@ -1,4 +1,4 @@
 export const env = {
     production : true,
-    api : 'http://localhost:3001'
+    api : 'https://secure-guinea-gorgeous.ngrok-free.app'
 }
