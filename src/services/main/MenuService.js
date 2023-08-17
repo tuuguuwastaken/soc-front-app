@@ -1,15 +1,14 @@
 import instance from "@/services/interceptor/interceptor";
-import {env} from '@/environment/environment.js'
+// import {env} from '@/environment/environment.js'
 
-const baseURL = '/api/v1/qr/menu'
-const api = env.api
+const baseURL = '/api/v1/user'
 class MenuService{
     static getMenu(){
-        console.log(`${api}${baseURL}`)
-        return instance.get(`${api}${baseURL}`)
+        console.log(`${baseURL}`)
+        return instance.get(`${baseURL}`)
     }
     static addToMenu(name, description, price) {
-        return instance.post(`${api}${baseURL}/add`, {
+        return instance.post(`${baseURL}/add`, {
             name:name,
             description:description,
             price:price
