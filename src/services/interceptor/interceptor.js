@@ -2,15 +2,8 @@ import axios from 'axios';
 import { env } from '@/environment/environment';
 
 const instance = axios.create();
+let backendUrl = env.api
 
-const isLocalAvailable = checkLocalAvailability();
-let backendUrl = ''
-
-if(isLocalAvailable){
-  backendUrl = env.local
-} else {
-  backendUrl = env.api
-}
 
 
 if (backendUrl) {
@@ -39,18 +32,6 @@ if (backendUrl) {
 }
 
 export default instance;
-
-async function checkLocalAvailability() {
-  try {
-    const response = await axios.get(env.local);
-    if(response.status === 200){
-      return true
-    }
-  } catch (error) {
-    return false;
-  }
-}
-
 
 
 

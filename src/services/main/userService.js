@@ -16,6 +16,14 @@ class UserService {
             email:email,
         })
     }
+
+    static loginUser(tag,password){
+        return instance.post(`${api}${baseURL}/login`, {
+            tag:tag,
+            password:password
+        })
+    }
+
 }
 
 export default UserService;
