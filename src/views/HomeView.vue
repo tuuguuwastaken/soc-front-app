@@ -1,42 +1,34 @@
 <template>
-  <a-row :gutter="[16, 24]">
-    <a-col :span="24">
-      <a-button @click="sendRequest">test</a-button>
+  <a-row :gutter="5">
+    <a-col :span="5" :offset="2">
+      <profile-box></profile-box>
     </a-col>
-    <a-col :span="24">
-      <a-button @click="getMenuItem">test get</a-button>
-    </a-col>
-    <a-col :span="24">
-      <label for="">name</label>
-      <input type="text" v-model="name">
-    </a-col>
-    <a-col :span="24">
-      <label for="">desc</label>
-      <input type="text" v-model="description">
-    </a-col>
-    <a-col :span="24">
-      <label for="">price</label>
-      <input type="text" v-model="price">
-    </a-col>
-    <a-col :span="24">
-      <a-space direction="vertical" align="center">
-        <a-qrcode :value="text" />
-        <a-input v-model:value="text" placeholder="-" :maxlength="60" />
-      </a-space>
+    <a-col :span="11" >
+      <a-card bordered>
+        <a-row>
+          <a-col :span="24">
+            <a-form-item>
+              <textarea type="text"/>
+            </a-form-item>
+          </a-col>
+        </a-row>
+        <a-divider></a-divider>
+        <post-box> </post-box>
+      </a-card>
     </a-col>
   </a-row>
-
-
-
-
-
 </template>
 
 <script>
-import MenuService from "@/services/main/MenuService.js"
+import MenuService from "@/services/main/MenuService.js";
+import profileBox from "@/components/profile-box.vue";
+import postBox from '@/components/newPost.vue'
+
 export default {
   name: 'Home-main',
   components: {
+    profileBox,
+    postBox
   },
   data() {
     return {
@@ -73,6 +65,16 @@ export default {
             console.log(err)
           })
     }
+  },
+  created(){
+    // if()
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  textarea{
+    width: 100%;
+    height: 100%;
+  }
+</style>
