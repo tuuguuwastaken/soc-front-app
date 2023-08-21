@@ -65,6 +65,9 @@ export default {
             console.log(err)
           })
     }
+  },
+  created(){
+    // if()
   }
 }
 </script>

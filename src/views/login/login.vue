@@ -11,7 +11,6 @@
             <label>password</label>
             <a-input v-model:value="password" placeholder="password: "></a-input>
           </a-form-item>
-          <a-form-item>
         </a-form>
         <a-button @click="login">register</a-button>
       </a-card>
@@ -40,7 +39,7 @@ export default {
       UserService.loginUser(this.username ,this.password)
           .then(res => {
             if(res.data.login_status){
-              localStorage.setItem('token',res.data.userid)
+              this.setCookie('token',res.data.userid,1)
               this.$router.push('/')
             }
           })
@@ -48,6 +47,18 @@ export default {
             console.log(err)
           })
     },
+    setCookie(name,value,expire) {
+      const expirationDate = new Date();
+      expirationDate.setTime(expirationDate.getTime() + expire * 60 * 1000);
+
+      const cookieValue = value;
+      document.cookie = `${name}=${cookieValue}; expires=${expirationDate.toUTCString()}; path=/`;
+    }
+  },
+  created(){
+    if(localStorage.getItem('token')){
+      this.$router.push('/')
+    }
   }
 }
 </script>
