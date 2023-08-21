@@ -1,6 +1,6 @@
 <template>
-  <a-row>
-    <a-col :span="12">
+  <a-row :justify="'center'">
+    <a-col :span="7">
       <a-card>
         <a-form>
           <a-form-item>
@@ -8,31 +8,13 @@
             <a-input v-model:value="username"  id="username" placeholder="username:"/>
           </a-form-item>
           <a-form-item>
-            <label>email</label>
-            <a-input v-model:value="email" placeholder="email:"></a-input>
-          </a-form-item>
-          <a-form-item>
             <label>password</label>
             <a-input v-model:value="password" placeholder="password: "></a-input>
           </a-form-item>
           <a-form-item>
-            <label> verify password :</label>
-            <a-input v-model:value="password_verify" @change="verifyPassword"></a-input>
-          </a-form-item>
         </a-form>
-        <a-button @click="register">register</a-button>
+        <a-button @click="login">register</a-button>
       </a-card>
-    </a-col>
-    <a-col :span="12">
-      <a-input v-model:value="login_tag" aria-placeholder="tag">
-
-      </a-input>
-      <a-input v-model:value="login_pass" aria-placeholder="pass">
-
-      </a-input>
-      <a-button @click="login">
-        login
-      </a-button>
     </a-col>
   </a-row>
 </template>
@@ -54,31 +36,8 @@ export default {
     }
   },
   methods:{
-    verifyPassword(){
-      if(this.password == this.password_verify){
-
-        this.password_same = true;
-      } else {
-        this.password_same = false;
-      }
-    },
-    register(){
-      console.log(this.username,this.password,this.email)
-      if(this.password_same){
-        UserService.registerUser(this.username,this.password,this.email)
-            .then(res =>{
-              console.log(res)
-            })
-            .catch(err =>{
-              console.log(err)
-            })
-      } else {
-        alert('password not the same')
-      }
-    },
     login(){
-      console.log(this.login_tag,this.login_pass)
-      UserService.loginUser(this.login_tag,this.login_pass)
+      UserService.loginUser(this.username ,this.password)
           .then(res => {
             if(res.data.login_status){
               localStorage.setItem('token',res.data.userid)
@@ -88,7 +47,7 @@ export default {
           .catch(err =>{
             console.log(err)
           })
-    }
+    },
   }
 }
 </script>
