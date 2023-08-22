@@ -7,8 +7,6 @@ let backendUrl = env.api
 
 
 if (backendUrl) {
-  instance.defaults.baseURL = backendUrl;
-
   instance.interceptors.request.use(
     (request) => {
       if (!request.url?.includes("file")) {
