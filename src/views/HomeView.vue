@@ -8,7 +8,7 @@
         <a-row>
           <a-col :span="24">
             <a-form-item>
-              <textarea type="text"/>
+              <newpost></newpost>
             </a-form-item>
           </a-col>
         </a-row>
@@ -22,13 +22,15 @@
 <script>
 import MenuService from "@/services/main/MenuService.js";
 import profileBox from "@/components/profile-box.vue";
+import newpost from "@/components/new_post.vue";
 import postBox from '@/components/newPost.vue'
 
 export default {
   name: 'Home-main',
   components: {
     profileBox,
-    postBox
+    postBox,
+    newpost
   },
   data() {
     return {
