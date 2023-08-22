@@ -24,6 +24,10 @@ class UserService {
         })
     }
 
+    static findUser(id){
+        return instance.post(`${api}${baseURL}/find`,{uuid:id})
+    }
+
 }
 
 export default UserService;
