@@ -9,7 +9,7 @@ import headerButtons from '@/components/header-buttons.vue';
   export default {
     components:{
       headerButtons
-    }
+    },
   }
 </script>
 

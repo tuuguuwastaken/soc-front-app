@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-
 function path(path,name,component){
   return {
     path,name,component: () => import('@/views/'+component)

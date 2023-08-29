@@ -12,7 +12,7 @@
             <a-input v-model:value="password" placeholder="password: "></a-input>
           </a-form-item>
         </a-form>
-        <a-button @click="login">register</a-button>
+        <a-button @click="login">login</a-button>
       </a-card>
     </a-col>
   </a-row>
@@ -36,24 +36,21 @@ export default {
   },
   methods:{
     login(){
-      UserService.loginUser(this.username ,this.password)
+      if(this.username && this.password){
+        UserService.loginUser(this.username ,this.password)
           .then(res => {
             if(res.data.login_status){
-              this.setCookie('token',res.data.userid,1)
+              localStorage.setItem('token',res.data.userid)
               this.$router.push('/')
             }
           })
           .catch(err =>{
             console.log(err)
           })
+      } else {
+        alert('please enter username and password')
+      }
     },
-    setCookie(name,value,expire) {
-      const expirationDate = new Date();
-      expirationDate.setTime(expirationDate.getTime() + expire * 60 * 1000);
-
-      const cookieValue = value;
-      document.cookie = `${name}=${cookieValue}; expires=${expirationDate.toUTCString()}; path=/`;
-    }
   },
   created(){
     if(localStorage.getItem('token')){

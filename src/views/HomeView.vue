@@ -69,8 +69,10 @@ export default {
     }
   },
   created(){
-    // if()
-  }
+    if (!localStorage.getItem('token')) {
+      this.$router.push('/login')
+    }
+  },
 }
 </script>
 
