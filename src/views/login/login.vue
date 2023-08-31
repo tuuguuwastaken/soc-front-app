@@ -41,7 +41,7 @@ export default {
         UserService.loginUser(this.username ,this.password)
           .then(res => {
             if(res.data.login_status){
-              localStorage.setItem('token',res.data.userid)
+              sessionStorage.setItem('token',res.data.userid)
               this.$router.push('/')
             } else {
               alert(res)
@@ -59,7 +59,7 @@ export default {
     }
   },
   created(){
-    if(localStorage.getItem('token')){
+    if(sessionStorage.getItem('token')){
       this.$router.push('/')  
     }
   }

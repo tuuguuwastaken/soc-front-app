@@ -76,7 +76,7 @@ export default {
     }
   },
   created(){
-    if (!localStorage.getItem('token')) {
+    if (!sessionStorage.getItem('token')) {
       this.$router.push('/login')
     }
     PostService.getPosts()
