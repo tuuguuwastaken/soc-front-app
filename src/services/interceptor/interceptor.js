@@ -2,13 +2,12 @@ import axios from 'axios';
 import { env } from '@/environment/environment';
 
 const instance = axios.create();
+let backendUrl = env.api
 
 
 const backendUrl = env.api;
 
 if (backendUrl) {
-  instance.defaults.baseURL = backendUrl;
-
   instance.interceptors.request.use(
     (request) => {
       if (!request.url?.includes("file")) {
@@ -32,7 +31,6 @@ if (backendUrl) {
 }
 
 export default instance;
-
 
 
 

@@ -1,42 +1,39 @@
 <template>
-  <a-row :gutter="[16, 24]">
-    <a-col :span="24">
-      <a-button @click="sendRequest">test</a-button>
+  <a-row :gutter="5">
+    <a-col :span="5" :offset="2">
+      <profile-box></profile-box>
     </a-col>
-    <a-col :span="24">
-      <a-button @click="getMenuItem">test get</a-button>
-    </a-col>
-    <a-col :span="24">
-      <label for="">name</label>
-      <input type="text" v-model="name">
-    </a-col>
-    <a-col :span="24">
-      <label for="">desc</label>
-      <input type="text" v-model="description">
-    </a-col>
-    <a-col :span="24">
-      <label for="">price</label>
-      <input type="text" v-model="price">
-    </a-col>
-    <a-col :span="24">
-      <a-space direction="vertical" align="center">
-        <a-qrcode :value="text" />
-        <a-input v-model:value="text" placeholder="-" :maxlength="60" />
-      </a-space>
+    <a-col :span="11" >
+      <a-card bordered>
+        <a-row>
+          <a-col :span="24">
+            <a-form-item>
+              <newpost></newpost>
+            </a-form-item>
+          </a-col>
+        </a-row>
+        <a-divider></a-divider>
+        <div v-for="post in posts" :key="post.id">
+          <post-box :post="post"> </post-box>
+        </div>
+      </a-card>
     </a-col>
   </a-row>
-
-
-
-
-
 </template>
 
 <script>
-import MenuService from "@/services/main/MenuService.js"
+import MenuService from "@/services/main/MenuService.js";
+import profileBox from "@/components/profile-box.vue";
+import newpost from "@/components/new_post.vue";
+import postBox from '@/components/newPost.vue'
+import PostService from '@/services/main/postService'
+
 export default {
   name: 'Home-main',
   components: {
+    profileBox,
+    postBox,
+    newpost
   },
   data() {
     return {
@@ -44,6 +41,7 @@ export default {
         name: '',
         description: '',
         price: null,
+        posts:[]
       }
   },
   methods:{
@@ -72,7 +70,28 @@ export default {
           }).catch(err=>{
             console.log(err)
           })
+    },
+    getPosts(){
+      
     }
-  }
+  },
+  created(){
+    if (!localStorage.getItem('token')) {
+      this.$router.push('/login')
+    }
+    PostService.getPosts()
+      .then(res => {
+        this.posts = res.data
+        console.log(res.data)
+        console.log(this.posts)
+      })  
+  },
 }
 </script>
+
+<style lang="scss" scoped>
+  textarea{
+    width: 100%;
+    height: 100%;
+  }
+</style>

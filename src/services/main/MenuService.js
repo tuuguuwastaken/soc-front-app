@@ -1,7 +1,8 @@
 import instance from "@/services/interceptor/interceptor";
 // import {env} from '@/environment/environment.js'
 
-const URL = '/api/v1/user'
+const baseURL = 'api/v1/user'
+
 class MenuService{
     static getMenu(){
         console.log(`${URL}`)
