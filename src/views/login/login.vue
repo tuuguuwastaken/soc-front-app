@@ -9,7 +9,7 @@
           </a-form-item>
           <a-form-item>
             <label>password</label>
-            <a-input v-model:value="password" placeholder="password: "></a-input>
+            <a-input type="password" v-model:value="password" placeholder="password: "></a-input>
           </a-form-item>
         </a-form>
         <a-button @click="login">login</a-button>
@@ -43,10 +43,12 @@ export default {
             if(res.data.login_status){
               localStorage.setItem('token',res.data.userid)
               this.$router.push('/')
+            } else {
+              alert(res)
             }
           })
           .catch(err =>{
-            console.log(err)
+            alert(err)
           })
       } else {
         alert('please enter username and password')

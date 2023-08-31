@@ -13,11 +13,11 @@
           </a-form-item>
           <a-form-item>
             <label>password</label>
-            <a-input v-model:value="password" placeholder="password: "></a-input>
+            <a-input type="password" v-model:value="password" placeholder="password: "></a-input>
           </a-form-item>
           <a-form-item>
             <label> verify password :</label>
-            <a-input v-model:value="password_verify"
+            <a-input type="password" v-model:value="password_verify"
                      aria-placeholder="verify password:"
                      @change="verifyPassword"></a-input>
           </a-form-item>
