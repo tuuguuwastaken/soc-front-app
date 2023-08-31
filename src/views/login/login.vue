@@ -14,7 +14,7 @@
         </a-form>
         <a-button @click="login">login</a-button>
       </a-card>
-      <p>if you dont have an account register, click here</p><a href="/register">register</a>
+      <p>if you dont have an account register, click here</p><a @click="toRegister">register</a>
     </a-col>
   </a-row>
 </template>
@@ -52,10 +52,13 @@ export default {
         alert('please enter username and password')
       }
     },
+    toRegister(){
+      this.$router.push('/register')
+    }
   },
   created(){
     if(localStorage.getItem('token')){
-      this.$router.push('/')
+      this.$router.push('/')  
     }
   }
 }
