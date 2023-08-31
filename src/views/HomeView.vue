@@ -13,7 +13,9 @@
           </a-col>
         </a-row>
         <a-divider></a-divider>
-        <post-box> </post-box>
+        <div v-for="post in posts" :key="post.id">
+          <post-box :post="post"> </post-box>
+        </div>
       </a-card>
     </a-col>
   </a-row>
@@ -24,6 +26,7 @@ import MenuService from "@/services/main/MenuService.js";
 import profileBox from "@/components/profile-box.vue";
 import newpost from "@/components/new_post.vue";
 import postBox from '@/components/newPost.vue'
+import PostService from '@/services/main/postService'
 
 export default {
   name: 'Home-main',
@@ -38,6 +41,7 @@ export default {
         name: '',
         description: '',
         price: null,
+        posts:[]
       }
   },
   methods:{
@@ -66,12 +70,21 @@ export default {
           }).catch(err=>{
             console.log(err)
           })
+    },
+    getPosts(){
+      
     }
   },
   created(){
     if (!localStorage.getItem('token')) {
       this.$router.push('/login')
     }
+    PostService.getPosts()
+      .then(res => {
+        this.posts = res.data
+        console.log(res.data)
+        console.log(this.posts)
+      })  
   },
 }
 </script>

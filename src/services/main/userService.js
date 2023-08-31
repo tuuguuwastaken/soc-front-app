@@ -1,7 +1,7 @@
 import instance from "@/services/interceptor/interceptor";
 import {env} from '@/environment/environment.js'
 
-const baseURL = '/api/v1/user'
+const baseURL = 'api/v1/user'
 const api = env.api
 
 class UserService {
@@ -12,6 +12,7 @@ class UserService {
     static registerUser(username,password,email){
         return instance.post(`${api}${baseURL}/create`, {
             username:username,
+            tag:username,
             password:password,
             email:email,
         })
