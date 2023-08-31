@@ -14,6 +14,7 @@
         </a-form>
         <a-button @click="login">login</a-button>
       </a-card>
+      <p>if you dont have an account register, click here</p><a href="/register">register</a>
     </a-col>
   </a-row>
 </template>
