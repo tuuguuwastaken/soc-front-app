@@ -60,6 +60,9 @@ export default {
         UserService.registerUser(this.username,this.password,this.email)
             .then(res =>{
               console.log(res)
+              if( res.data == "success" ){
+                this.$router.push('/')
+              }
             })
             .catch(err =>{
               console.log(err)
