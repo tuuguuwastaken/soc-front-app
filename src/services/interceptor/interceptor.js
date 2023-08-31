@@ -5,8 +5,6 @@ const instance = axios.create();
 let backendUrl = env.api
 
 
-const backendUrl = env.api;
-
 if (backendUrl) {
   instance.interceptors.request.use(
     (request) => {
