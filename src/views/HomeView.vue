@@ -1,9 +1,9 @@
 <template>
-  <a-row :gutter="5">
-    <a-col :span="5" :offset="2">
+  <a-row :gutter="[5,5]" :justify="'center'">
+    <a-col :xl='5' :md='5' :sm="20" :xs="20">
       <profile-box></profile-box>
     </a-col>
-    <a-col :span="11" >
+    <a-col :xl='11' :md='12' :sm="24">
       <a-card bordered>
         <a-row>
           <a-col :span="24">
@@ -22,7 +22,6 @@
 </template>
 
 <script>
-import MenuService from "@/services/main/MenuService.js";
 import profileBox from "@/components/profile-box.vue";
 import newpost from "@/components/new_post.vue";
 import postBox from '@/components/newPost.vue'
@@ -50,41 +49,17 @@ export default {
       this.description='';
       this.price=null;
     },
-    sendRequest(){
-      if(!this.name || !this.price){
-        alert('please enter something')
-      } else{
-        MenuService.addToMenu(this.name,this.description,this.price).then(res =>{
-          console.log(res)
-          this.resetForm()
-        }).catch(err =>{
-          console.log(err)
-        })
-      }
-    },
-    getMenuItem(){
-      MenuService.getMenu()
-          .then(res =>{
-            console.log(res)
-            this.resetForm()
-          }).catch(err=>{
-            console.log(err)
-          })
-    },
-    getPosts(){
-      
-    }
   },
   created(){
     if (!sessionStorage.getItem('token')) {
       this.$router.push('/login')
-    }
-    PostService.getPosts()
+    } else {
+      PostService.getPosts()
       .then(res => {
         this.posts = res.data
-        console.log(res.data)
-        console.log(this.posts)
+        this.posts = this.posts.reverse() 
       })  
+    }
   },
 }
 </script>

@@ -1,15 +1,31 @@
 <template>
-  <nav>
-    <header-buttons></header-buttons>
-  </nav>
-  <router-view/>
+  <div>
+    <div v-if="isMobile">
+      <router-view></router-view>
+    </div>
+    <div v-else>
+      <nav>
+        <header-buttons></header-buttons>
+      </nav>
+      <router-view/>
+    </div>
+  </div>
 </template>
 <script>
 import headerButtons from '@/components/header-buttons.vue';
+// import MobileApp from '@/views/mobile/mobile-app.vue';
   export default {
     components:{
-      headerButtons
+      headerButtons,
+      // MobileApp
     },
+    computer:{
+      isMobile() {
+        if(window.innerWidth <= 768){
+          console.log(window.innerWidth <= 768)
+        }
+      },
+    }
   }
 </script>
 
@@ -20,12 +36,12 @@ import headerButtons from '@/components/header-buttons.vue';
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  padding-left: 30px;
-  padding-right: 30px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 nav {
-  padding: 10px;
+  padding: 5px;
 
   a {
     font-weight: bold;

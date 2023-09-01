@@ -10,6 +10,7 @@ const routes = [
     path('/about','about','AboutView.vue'),
     path('/login','login','login/login.vue'),
     path('/register','register','login/register.vue'),
+    
 ]
 
 const router = createRouter({

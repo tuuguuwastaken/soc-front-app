@@ -1,11 +1,11 @@
 <template>
-  <a-row >
-    <a-col :span="5">
-      image here
-    </a-col>
-    <a-col :span="19">
+  <a-row >  
+    <a-col :span="24">
       <a-row >
-        <a-col :span="24" style="padding-bottom: 10px" class="soc-dropdown">
+        <a-col :span="5">
+          <img class="profile_pic" :src="env.api+'api/v1/file/'+profile_name">
+        </a-col>
+        <a-col :span="19" style="padding-bottom: 10px" class="soc-dropdown">
           <a-dropdown >
             <a class="ant-dropdown-link" @click.prevent>
               public
@@ -21,8 +21,9 @@
           </a-dropdown>
         </a-col>
       </a-row>
-      <a-row> 
-        <div class="drop-area" @dragover.prevent @drop="handleImageDrop">
+      <a-divider> </a-divider>
+      <a-row :justify="'center'"  > 
+        <div>
           <textarea v-model="post_body" placeholder=" What's going on? " @input="maxChars" />
           <div v-if="droppedImage" class="image-container">
             <img class="img-preview" v-if="droppedImage" :src="droppedImage" alt="Dropped Image" />
@@ -30,10 +31,10 @@
           </div>
         </div>
       </a-row>
-      <a-row :justify="'space-between'">
+      <a-row :justify="'end'" :align="'middle'" :gutter="5">
         <a-col class="soc-dropdown">
           <a-dropdown >
-            <a class="ant-dropdown-link" @click.prevent>
+            <a class="ant-dropdown-link" @click.prevent>  
               anyone can reply
               <DownOutlined/>
             </a>
@@ -47,14 +48,16 @@
           </a-dropdown>
         </a-col>
         <a-col>
-          <a-row :align="'middle'" :gutter="10">
-            <a-col :span="12">
-              <p> {{ post_body.length }} | {{ maxcharacters }}</p>
-            </a-col>
-            <a-col :span="12">
-              <a-button type="default" @click="post"> post</a-button>
-            </a-col>
-          </a-row>
+          <label class="custom-file-label" @click="handleClick">
+            file input  
+            <input type="file" ref="fileInput" @change="handleFileChange" />  
+          </label>  
+        </a-col>
+        <a-col style="width: 4rem;">
+          <p> {{ post_body.length }} | {{ maxcharacters }}</p>  
+        </a-col>
+        <a-col >
+          <a-button type="default" @click="post"> post</a-button>
         </a-col>
       </a-row>
     </a-col>
@@ -83,22 +86,32 @@ export default defineComponent({
         droppedImage: null,
         file:null,
         fileName:'',
+        env,
+        profile_name:"placeholder_pfp.png",
       }
     },
     methods:{
+      handleFileChange() {
+        this.file = this.$refs.fileInput.files[0];
+        if (this.file && this.file.type.startsWith('image/')) {
+          const imageURL = URL.createObjectURL(this.file);
+          this.droppedImage = imageURL;
+        }
+      },
       maxChars(){
         if(this.post_body.length >= this.maxcharacters){
           this.post_body = this.post_body.slice(0,this.maxcharacters)
         }
       },
-      handleImageDrop(event) {
+      handleFileDrop(event) {
         event.preventDefault();
         this.file = event.dataTransfer.files[0];
         if (this.file && this.file.type.startsWith('image/')) {
           const imageURL = URL.createObjectURL(this.file);
           this.droppedImage = imageURL;
         }
-      },
+        
+      },  
       deleteImg(){
         this.droppedImage = null;
         this.file = null;
@@ -151,11 +164,21 @@ export default defineComponent({
       outline: none ;
     }
   }
+
+  .drop-area{
+    width: 100%;
+    padding-left:10px
+  }
   .soc-dropdown{
     display: flex;
     justify-content: flex-start;
     align-items: center;
 
+  }
+  .profile_pic{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
   }
 
   .img-preview{
@@ -171,5 +194,29 @@ export default defineComponent({
     color: rgba(0, 0, 0, 0.5);
     pointer-events: none;
   }
+
+  .custom-file-input {
+  position: relative;
+}
+
+.custom-file-label {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  border-radius: 0.25rem;
+}
+
+/* Hide the input visually but not from accessibility */
+.custom-file-label input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}     
 
 </style>

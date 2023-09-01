@@ -1,6 +1,6 @@
 <template>
   <a-row :justify="'center'">
-    <a-col :span="7">
+    <a-col  :xl="7" :md="12" :sm="20" :xs="24">
       <a-card>
         <a-form>
           <a-form-item>
@@ -13,22 +13,30 @@
           </a-form-item>
           <a-form-item>
             <label>password</label>
-            <a-input type="password" v-model:value="password" placeholder="password: "></a-input>
+            <a-input-password v-model:value="password" placeholder="password: ">
+              <template #iconRender="v">
+                <EyeTwoTone v-if="v"></EyeTwoTone>
+                <EyeInvisibleOutlined v-else></EyeInvisibleOutlined>
+              </template>
+            </a-input-password>
           </a-form-item>
           <a-form-item>
             <label> verify password :</label>
-            <a-input type="password" v-model:value="password_verify"
-                     aria-placeholder="verify password:"
-                     @change="verifyPassword"></a-input>
+            <a-input-password v-model:value="password_verify" placeholder="verify password:" @change="verifyPassword">
+              <template #iconRender="v">
+                <EyeTwoTone v-if="v"></EyeTwoTone>
+                <EyeInvisibleOutlined v-else></EyeInvisibleOutlined>
+              </template>
+            </a-input-password>
           </a-form-item>
         </a-form>
         <a-button @click="register">register</a-button>
       </a-card>
-    </a-col>
-  </a-row>
+      </a-col>
+    </a-row>
 </template>
 
-    
+
 <script>
 import UserService from "@/services/main/userService";
 export default {
@@ -59,7 +67,7 @@ export default {
       if(this.password_same){
         UserService.registerUser(this.username,this.password,this.email)
             .then(res =>{
-              console.log(res)
+              console.info(res)
               if( res.data == "success" ){
                 this.$router.push('/')
               }

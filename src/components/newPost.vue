@@ -4,7 +4,7 @@
       <a-card>
         <a-row :gutter="10">
           <a-cols>
-            <p>pfp</p>
+            <img class="profile_pic" :src="env.api+'api/v1/file/'+profile_name">
           </a-cols>
           <a-col> 
             <p>{{post.posted_by}}</p>
@@ -21,13 +21,13 @@
         </a-row>
         <a-row :justify="'center'" :gutter="24">
           <a-col>
-            <i class="fa fa-comment" aria-hidden="true"></i>
+            <i class="fa fa-comment" aria-hidden="true" @click="comment"></i>
           </a-col>
           <a-col>
-            <i class="fa fa-retweet" aria-hidden="true"></i>
+            <i class="fa fa-retweet" aria-hidden="true" @click="retweet"></i>
           </a-col>
           <a-col>
-            <i class="fa fa-heart-o fa-6" aria-hidden="true"></i>
+            <i class="fa fa-heart-o fa-6" aria-hidden="true" @click="sendLike"></i>
           </a-col>
         </a-row>
       </a-card>
@@ -50,6 +50,12 @@ export default {
   data(){
     return{
       env,
+      profile_name:"placeholder_pfp.png",
+    }
+  },
+  created(){
+    if(this.post.profile_pic != null){
+      this.profile_name = this.post.profile_pic;
     }
   }
   
@@ -57,6 +63,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.profile_pic{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+  }
 .post-box{
   padding-left: 30px;
   padding-right: 30px;

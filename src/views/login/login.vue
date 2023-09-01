@@ -1,6 +1,6 @@
 <template>
   <a-row :justify="'center'">
-    <a-col :span="7">
+    <a-col :xl="7" :md="12" :sm="20" :xs="24">
       <a-card>
         <a-form>
           <a-form-item>
