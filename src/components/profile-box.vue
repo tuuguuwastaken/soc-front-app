@@ -12,34 +12,25 @@
 
 
 <script>
-import UserService from "@/services/main/userService";
 import { env } from "@/environment/environment";
 export default {
   name:"post-box",
   components:{},
   data(){
     return{
-      user: {},
       env,
-      profile_name:'placeholder_pfp.png'
     }
+  },
+  props:{
+    profile_name:{
+      type:String,
+    },
+    user:Object,
   },
   methods:{
-    getUserInfo(){
-      UserService.findUser(sessionStorage.getItem('token'))
-      .then(res =>{
-        this.user = res.data;
-        if(res.data.profile_pic != null){
-          this.profile_name = res.data.profile_pic
-        }
-        console.log(this.user)
-      })
-    }
   },
   created(){
-    if(sessionStorage.getItem('token')){
-      this.getUserInfo();
-    }
+    
   }
 }
 </script>

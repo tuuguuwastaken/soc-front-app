@@ -1,11 +1,14 @@
 <template>
   <a-row >  
     <a-col :span="24">
-      <a-row >
-        <a-col :span="5">
+      <a-row :gutter="8" >
+        <a-col>
           <img class="profile_pic" :src="env.api+'api/v1/file/'+profile_name">
         </a-col>
-        <a-col :span="19" style="padding-bottom: 10px" class="soc-dropdown">
+        <a-col>
+          <p>{{ user.username }}</p>
+        </a-col>
+        <a-col style="padding-bottom: 10px" class="soc-dropdown">
           <a-dropdown >
             <a class="ant-dropdown-link" @click.prevent>
               public
@@ -23,7 +26,7 @@
       </a-row>
       <a-divider> </a-divider>
       <a-row :justify="'center'"  > 
-        <div>
+        <div class="drop-area">
           <textarea v-model="post_body" placeholder=" What's going on? " @input="maxChars" />
           <div v-if="droppedImage" class="image-container">
             <img class="img-preview" v-if="droppedImage" :src="droppedImage" alt="Dropped Image" />
@@ -87,7 +90,12 @@ export default defineComponent({
         file:null,
         fileName:'',
         env,
-        profile_name:"placeholder_pfp.png",
+      }
+    },
+    props:{
+      user:Object,
+      profile_name:{
+        type:String,
       }
     },
     methods:{
@@ -124,8 +132,6 @@ export default defineComponent({
         this.post_by = localStorage.getItem('token')
         if(this.file){
           const formData = new FormData();
-          // formData.append('body',this.post_body)
-          // formData.append('by',this.post_by)
           formData.append('file', this.file);
           axios.post(`${env.api}api/v1/file/upload`,formData, {headers:{ 'Content-Type': 'multipart/form-data',}})
           .then(res=>{
@@ -136,6 +142,7 @@ export default defineComponent({
               this.post_by = '';
               this.post_body = '';
               this.droppedImage = null
+              location.reload()
             })
           })
         }else {
@@ -145,9 +152,8 @@ export default defineComponent({
               return true;
             })
         }
-
       },
-    },  
+    }, 
   });
 </script>
 
@@ -189,8 +195,8 @@ export default defineComponent({
     border: 1px solid black;
     opacity: 0.7;
     border-radius: 15px;
-    width: 75%;
-    height: 75%;
+    width: 50%;
+    height: 50%;
     color: rgba(0, 0, 0, 0.5);
     pointer-events: none;
   }
