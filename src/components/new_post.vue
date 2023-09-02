@@ -129,7 +129,7 @@ export default defineComponent({
         this.post_body = '';
       },
       post(){
-        this.post_by = localStorage.getItem('token')
+        this.post_by = sessionStorage.getItem('token')
         if(this.file){
           const formData = new FormData();
           formData.append('file', this.file);
