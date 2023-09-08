@@ -83,7 +83,7 @@ export default defineComponent({
     data(){
       return {
         post_body:'',
-        post_by:'',
+        post_by:sessionStorage.getItem('token'),
         currentChars:0,
         maxcharacters:210,
         droppedImage: null,
@@ -129,7 +129,6 @@ export default defineComponent({
         this.post_body = '';
       },
       post(){
-        this.post_by = localStorage.getItem('token')
         if(this.file){
           const formData = new FormData();
           formData.append('file', this.file);
