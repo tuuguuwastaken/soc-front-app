@@ -8,6 +8,7 @@ function path(path,name,component){
 const routes = [
     path('/','Home','HomeView.vue'),
     path('/about','about','AboutView.vue'),
+    path('/profile','profile','ProfileView.vue'),
     path('/login','login','login/login.vue'),
     path('/register','register','login/register.vue'),
     
